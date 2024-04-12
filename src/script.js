@@ -1,3 +1,19 @@
+//Store User Prompts and AI Responses using Transactional SQL Local Storage
+let db; //Global variable to store the database
+
+function openDB(){
+  const db_request = window.indexedDB.open("PRDatabase")//Prompts Response Database
+  db_request.onerror = () =>{
+    console.error("indexedDB failed to initialize")
+  }
+  db_request.onsuccess = (event) =>{
+    db = event.target.result;
+    console.log("Database successfully connected")
+  }
+}
+
+openDB();//Open Database
+
 //When ChatGPT AI's response is received, load message onto front-end
 function AI_Response(response) {
   const response_element = document.getElementById("response");
