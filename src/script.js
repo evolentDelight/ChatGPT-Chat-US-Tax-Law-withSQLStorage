@@ -16,7 +16,12 @@ openDB();//Open Database
 
 function savePR(){// PR as in Prompt and Response
   const prompt = document.getElementById("prompt").value;
-  const response = document.getElementById("response");
+  const response = document.getElementById("response").textContent;
+
+  if(!prompt || !response){
+    alert("There must be an user Prompt and an AI response!");
+    return;
+  }
 
   const PR = {
     prompt: `${prompt}`,
@@ -90,3 +95,6 @@ document.getElementById("prompt").addEventListener("keypress", (e) => {
     inquirePrompt();
   }
 });
+
+//Save button: Saves Prompts and Responses
+document.getElementById("saveButton").addEventListener("click", savePR);
