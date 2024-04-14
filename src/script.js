@@ -2,13 +2,18 @@
 let db; //Global variable to store the database
 
 function openDB(){
-  const db_request = indexedDB.open("PRDatabase")//Prompts Response Database
+  const db_request = indexedDB.open("PRDatabase", 1)//Prompts Response Database
   db_request.onerror = () =>{
     console.error("indexedDB failed to initialize")
   }
+  db_request.onupgradeneeded = (event) =>{
+    db = event.target.result;
+    db.createObjectStore('PRDatabaseStore', {keyPath: `prompt`})
+    console.log("Database successfully connected[OUN]")
+  }
   db_request.onsuccess = (event) =>{
     db = event.target.result;
-    console.log("Database successfully connected")
+    console.log("Database successfully connected[OS]")
   }
 }
 
@@ -16,7 +21,10 @@ openDB();//Open Database
 
 function savePR(){// PR as in Prompt and Response
   const prompt = document.getElementById("prompt").value;
-  const response = document.getElementById("response").textContent;
+  var response = document.getElementById("response").textContent;
+  if(response === "Chatbot will respond here"){
+    response = null;
+  }
 
   if(!prompt || !response){
     alert("There must be an user Prompt and an AI response!");
