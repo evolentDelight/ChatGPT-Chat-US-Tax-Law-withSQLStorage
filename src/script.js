@@ -2,7 +2,7 @@
 let db; //Global variable to store the database
 
 function openDB(){
-  const db_request = window.indexedDB.open("PRDatabase")//Prompts Response Database
+  const db_request = indexedDB.open("PRDatabase")//Prompts Response Database
   db_request.onerror = () =>{
     console.error("indexedDB failed to initialize")
   }
@@ -13,6 +13,21 @@ function openDB(){
 }
 
 openDB();//Open Database
+
+function savePR(){// PR as in Prompt and Response
+  const prompt = document.getElementById("prompt").value;
+  const response = document.getElementById("response");
+
+  const PR = {
+    prompt: `${prompt}`,
+    response : `${response}`,
+    created: new Date().getTime()
+  }
+
+  const transaction = db.transaction("PRDatabaseStore", "readwrite");
+  const store = transaction.objectStore("PRDatabaseStore")
+  store.add(PR);
+}
 
 //When ChatGPT AI's response is received, load message onto front-end
 function AI_Response(response) {
