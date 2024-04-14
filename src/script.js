@@ -68,7 +68,7 @@ async function inquirePrompt() {
 
   if (prompt) {
     //REST call
-    await fetch("https://chatgpt-chat-us-tax-law.onrender.com/", {
+    await fetch("https://chatgpt-chat-us-tax-law-withsqlstorage.onrender.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
