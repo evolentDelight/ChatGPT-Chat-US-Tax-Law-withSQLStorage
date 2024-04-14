@@ -53,3 +53,9 @@ input[type=button]{
   margin: 4px 2px;
   cursor: pointer;
 }
+
+.saveButtonContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
